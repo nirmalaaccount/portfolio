@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mandap.com — Homepage Audit &amp; Redesign · Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14161A; --ink-2:#3D434D; --ink-3:#646B77; --ink-4:#8A9099;
+  --page:#FFFFFF; --raised:#F7F8F9; --sunken:#EFF1F3; --dark:#12131c;
+  --line:#E3E6EA; --line-2:#CBD1D8;
+  --gold:#c5a059; --gold-soft:#FBF6EE;
+  --ok:#1F6B4A; --ok-soft:#EDF6F1;
+  --warn:#B4451F; --warn-soft:#FDF2EE;
+  --font-sans:"Poppins",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --font-serif:"Newsreader",Georgia,serif;
+  --maxw:1120px; --gutter:clamp(20px,4vw,56px); --sec:clamp(56px,7vw,112px); --r:10px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+body{margin:0;background:var(--page);color:var(--ink);font-family:var(--font-sans);font-size:1.0625rem;line-height:1.72;font-weight:400}
+img{display:block;max-width:100%;height:auto}
+h1,h2,h3,h4,p,figure{margin:0}
+ul{margin:0;padding:0;list-style:none}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gutter)}
+.narrow{max-width:760px;margin-inline:auto}
+.eyebrow{font-size:.6875rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.h1{font-family:var(--font-serif);font-weight:300;font-size:clamp(2.25rem,4.6vw,3.75rem);line-height:1.08;letter-spacing:-.02em}
+.h2{font-family:var(--font-serif);font-weight:300;font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.16;letter-spacing:-.015em}
+.h3{font-size:clamp(1.125rem,1.5vw,1.375rem);font-weight:600;line-height:1.3}
+.h4{font-size:1.0625rem;font-weight:600;line-height:1.3}
+.lead{font-size:clamp(1.125rem,1.5vw,1.3125rem);line-height:1.66;color:var(--ink-2);font-weight:300}
+.muted{color:var(--ink-3)}
+.prose>*+*{margin-top:1.15em}
+.prose p{color:var(--ink-2)}
+.prose h3{margin-top:2.4em;color:var(--ink)}
+.prose ul{display:grid;gap:.6em;margin-top:1em}
+.prose ul li{padding-left:1.35em;position:relative;color:var(--ink-2)}
+.prose ul li::before{content:"";position:absolute;left:.25em;top:.72em;width:5px;height:5px;border-radius:50%;background:var(--line-2)}
+.sec{padding-block:var(--sec)}
+.sec--alt{background:var(--raised);border-block:1px solid var(--line)}
+.sec--dark{background:var(--dark);color:#F2F4F6}
+.sec--dark .lead,.sec--dark .prose p{color:#B9BFC7}
+.sec--dark .muted{color:#8E959E}
+.sec--dark .eyebrow{color:#D8B478}
+.sec__head{display:grid;gap:16px;max-width:720px;margin-bottom:clamp(32px,4vw,56px)}
+.subnav{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.subnav__in{display:flex;align-items:center;gap:8px;overflow-x:auto;scrollbar-width:none;min-height:56px}
+.subnav__in::-webkit-scrollbar{display:none}
+.subnav a{font-size:.8125rem;font-weight:500;color:var(--ink-3);padding:8px 12px;border-radius:6px;white-space:nowrap;text-decoration:none}
+.subnav a:hover{background:var(--sunken);color:var(--ink)}
+.hero{padding-block:clamp(48px,7vw,104px) clamp(40px,5vw,72px)}
+.hero__title{display:grid;gap:24px;max-width:900px}
+.hero__meta{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:clamp(36px,4vw,56px);padding-top:28px;border-top:1px solid var(--line)}
+.hero__meta dt{font-size:.6875rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4);margin-bottom:6px}
+.hero__meta dd{font-size:.9375rem;color:var(--ink)}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,24px)}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(20px,2.5vw,32px)}
+.card{background:var(--page);border:1px solid var(--line);border-radius:var(--r);padding:clamp(20px,2.4vw,30px);display:grid;gap:10px;align-content:start}
+.sec--alt .card{background:var(--page)}
+.sec--dark .card{background:#1D2026;border-color:#2C3138}
+.card__n{font-family:var(--font-serif);font-size:1.05rem;color:var(--gold);letter-spacing:.08em}
+.card p{font-size:.9375rem;color:var(--ink-2)}
+.sec--dark .card p{color:#B9BFC7}
+.callout{border-left:3px solid var(--gold);background:var(--gold-soft);padding:20px 24px;border-radius:0 var(--r) var(--r) 0;display:grid;gap:8px;margin-block:28px}
+.callout .lbl{font-size:.6875rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8A5F26}
+.callout p{font-size:1rem;color:var(--ink-2)}
+.callout.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+.callout.warn .lbl{color:var(--warn)}
+.verified{border:1px solid #B6D8C6;background:var(--ok-soft);border-radius:var(--r);padding:16px 20px;display:flex;gap:10px;align-items:baseline;margin-block:20px;font-size:.9375rem}
+.verified b{color:var(--ok);flex:none}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2vw,28px);margin-block:32px}
+.ba__col{display:grid;gap:12px}
+.ba__label{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;border-radius:99px;display:inline-block;width:fit-content}
+.ba__label.before{background:#FDF2EE;color:#B4451F}
+.ba__label.after{background:var(--ok-soft);color:var(--ok)}
+.frame{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--sunken)}
+.frame iframe{width:100%;height:420px;border:0;display:block}
+.frame__fallback{padding:32px 20px;text-align:center;font-size:.875rem;color:var(--ink-3)}
+.mock{border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.tbl{width:100%;border-collapse:collapse;font-size:.9375rem;margin-block:24px}
+.tbl th,.tbl td{text-align:left;padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl thead th{font-size:.6875rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4);font-weight:600;border-bottom:1px solid var(--line-2)}
+.tbl td.was{color:var(--ink-3)}
+.tbl td.now{color:var(--ok);font-weight:500}
+.steps{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.step{background:var(--page);padding:clamp(22px,2.6vw,32px);display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start}
+.sec--dark .step{background:#1D2026}
+.step__n{width:36px;height:36px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:.8125rem;font-weight:600;flex:none}
+.sec--dark .step__n{background:var(--gold);color:#1D2026}
+.step p{font-size:.9375rem;color:var(--ink-2)}
+.sec--dark .step p{color:#B9BFC7}
+.quote{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding-block:clamp(28px,4vw,48px);margin-block:clamp(28px,4vw,48px)}
+.quote p{font-family:var(--font-serif);font-weight:300;font-size:clamp(1.3rem,2.4vw,1.875rem);line-height:1.34;color:var(--ink)}
+.quote footer{margin-top:16px;font-size:.875rem;color:var(--ink-3)}
+.foot{background:var(--dark);color:#B9BFC7;padding-block:clamp(40px,5vw,72px);font-size:.9375rem}
+.foot a{color:#D8B478;text-decoration:underline;text-underline-offset:3px}
+.foot .h3{color:#F2F4F6;margin-bottom:12px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.tag{font-size:.8125rem;font-weight:600;color:var(--ink-2);background:var(--gold-soft);border:1px solid #EAD9B8;padding:6px 14px;border-radius:99px}
+@media (max-width:900px){.hero__meta{grid-template-columns:repeat(2,1fr)}.grid-3{grid-template-columns:repeat(2,1fr)}.grid-2,.ba{grid-template-columns:1fr}}
+@media (max-width:560px){.grid-3{grid-template-columns:1fr}.step{grid-template-columns:1fr;gap:12px}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero__title">
+      <p class="eyebrow">Self-initiated case study · Mandap.com, Matrimony.com group</p>
+      <h1 class="h1">Measuring before redesigning: an audit-led rebuild of a live wedding-venue homepage</h1>
+      <p class="lead">Mandap.com is the wedding-venue-discovery arm of the Matrimony.com group — 50,000+ listed venues across 100+ cities. I self-initiated a full audit of its live homepage, defined the underlying problem before touching any pixels, and built a working redesign against what the audit actually found — not against assumption.</p>
+    </div>
+    <dl class="hero__meta">
+      <div><dt>My role</dt><dd>Solo — self-initiated audit, IA, UI, rationale</dd></div>
+      <div><dt>Context</dt><dd>Mandap.com, Matrimony.com group (public site)</dd></div>
+      <div><dt>Method</dt><dd>Live DOM + contrast audit, then redesign</dd></div>
+      <div><dt>Platform</dt><dd>Responsive web — desktop, tablet, mobile</dd></div>
+    </dl>
+  </div>
+</header>
+
+<section class="sec" style="padding-block:0 clamp(40px,5vw,64px)">
+  <div class="wrap">
+    <div class="grid-3">
+      <div class="card">
+        <span class="card__n">Problem</span>
+        <p>A homepage trying to read as a premium, trusted wedding platform was quietly undermined by an unreconciled SEO content block — 412 total links on one page, 292 of them stacked in the footer with no grouping — and zero social proof anywhere.</p>
+      </div>
+      <div class="card">
+        <span class="card__n">Decision</span>
+        <p>Treated the visual mess as a symptom, not the problem — ran root-cause analysis first, then resequenced the page around one shared system instead of three unreconciled agendas (SEO, trust, conversion).</p>
+      </div>
+      <div class="card">
+        <span class="card__n">Outcome</span>
+        <p>A working redesign prototype resolving every P0 finding — measured, not assumed — honestly framed as design-stage, not yet backed by analytics or user testing.</p>
+      </div>
+    </div>
+    <div class="tags">
+      <span class="tag">Live-site DOM auditing</span>
+      <span class="tag">WCAG contrast testing</span>
+      <span class="tag">Problem definition / root cause</span>
+      <span class="tag">Responsive UI</span>
+      <span class="tag">Vertical-slice task planning</span>
+      <span class="tag">Self-critique &amp; iteration</span>
+    </div>
+  </div>
+</section>
+
+<nav class="subnav" aria-label="Case study sections">
+  <div class="wrap subnav__in">
+    <a href="#context">Context</a>
+    <a href="#audit">The audit</a>
+    <a href="#search-placement">Search placement</a>
+    <a href="#before-after">Before / After</a>
+    <a href="#user-journey">User journey</a>
+    <a href="#bridge">The bridge</a>
+    <a href="#mobile">Mobile</a>
+    <a href="#reflect">Reflection</a>
+  </div>
+</nav>
+
+<section class="sec" id="context">
+  <div class="wrap narrow prose">
+    <p class="eyebrow">Context</p>
+    <h2 class="h2" style="margin-top:14px">A directory trying to become a companion</h2>
+    <p>Mandap.com sits inside the Matrimony.com group as a wedding-venue booking platform — 50,000+ verified venues across 100+ Indian cities, with dedicated venue experts and a ₹0-cost listing model for venue owners. The brief behind this project asked for the homepage to read as more than a directory: a trusted wedding-planning companion, backed by the group's credibility, AI-assisted search, and expert guidance.</p>
+    <p>That's a harder brief than it sounds. Wedding-venue selection is a once-in-a-lifetime, emotionally loaded decision, and the live homepage had accumulated real content — a 100+-city SEO link architecture, FAQ content, a vendor-acquisition flow — added incrementally over time, likely by different owners, with no single system tying it together. The design problem wasn't a blank canvas; it was reconciling what already existed.</p>
+  </div>
+</section>
+
+<section class="sec sec--alt" id="audit">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow">The audit</p>
+      <h2 class="h2">What I actually measured, and what I found</h2>
+      <p class="lead">I ran a structured audit of the live site — <a href="https://www.mandap.com/" target="_blank" rel="noopener">mandap.com</a> — using real DOM inspection and automated contrast testing rather than a visual skim. Every number below is reproducible by visiting the page directly.</p>
+    </div>
+
+    <div class="verified"><b>Verified</b> Every finding below came from live DOM inspection, computed styles, or an automated WCAG contrast script — re-checked against the live site the day this audit was run, not carried over from memory or a screenshot.</div>
+
+    <div class="grid-2">
+      <div class="prose">
+        <h3 style="margin-top:0">What I found</h3>
+        <ul>
+          <li><strong>412 total links on the homepage</strong>, with <strong>292 of them stacked in one footer block</strong> — counted directly via <code>document.querySelectorAll('a').length</code>, not estimated from a screenshot.</li>
+          <li><strong>A WCAG AA contrast failure</strong> on the SEO link color — measured at 3.35:1 against a 4.5:1 requirement using an automated contrast script, not eyeballed.</li>
+          <li><strong>Zero testimonials or third-party social proof</strong> anywhere on the homepage, for a category where peer validation carries real weight in a high-stakes purchase.</li>
+          <li><strong>Two competing search UIs on desktop</strong> — a nav-level pill and a full hero search — solving the identical task in the same screen's height. Confirmed via responsive testing that this resolves correctly on mobile, and is desktop-only.</li>
+          <li><strong>An H1 with no responsive type scale</strong> — measured at a fixed 40px at both 1512px and ~500px viewport widths, with a hard-coded line break.</li>
+          <li><strong>No shared component system</strong> — the trust strip, FAQ, and vendor CTA sections each use a visually different card language.</li>
+        </ul>
+      </div>
+      <div class="prose">
+        <h3 style="margin-top:0">Why it matters</h3>
+        <p>For a platform whose stated brief is to be trusted with a once-in-a-lifetime decision, every one of these findings works against that goal specifically — not against generic best practice, but against the brief's own stated ambition.</p>
+        <div class="callout">
+          <span class="lbl">Root cause, not just symptoms</span>
+          <p>None of this reads as one team's mistake. It reads as several teams' reasonable decisions (an SEO team's link architecture, a growth team's vendor CTA, a brand team's hero) shipped without a shared system connecting them — which is a different, cheaper problem to fix than "the design is bad."</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <span class="lbl">What this audit did not include</span>
+      <p>I had no access to analytics, user interviews, or internal stakeholders — this is a self-initiated heuristic and measurement audit of a public live site, not a mixed-methods research study, and I'm not going to claim otherwise. Every business-impact claim in the full write-up is explicitly labeled a hypothesis, not a fact, until real data backs it.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--alt" id="search-placement">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow">Search placement — early exploration</p>
+      <h2 class="h2">Three directions before the Search Hub</h2>
+      <p class="lead">One of the audit's key findings was two competing search UIs on the same desktop screen — a nav-level pill and a full hero form doing the same job. Before settling on a solution, I worked through three placement directions. These are rough layout explorations, not finished designs.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <span style="background:#FDF2EE;color:#B4451F;font-size:.6875rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:99px;display:inline-block;margin-bottom:12px">Direction A</span>
+        <h3 class="h3" style="font-size:1rem">Nav-only search, remove hero form</h3>
+        <div style="background:#f5f5f7;border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:12px 0;font-size:.8125rem;font-family:monospace;line-height:1.6;color:var(--ink-3)">
+          [nav] ——— Search pill ——— CTA<br>
+          ────────────────────────────<br>
+          Hero image + headline only<br>
+          &nbsp;&nbsp;↳ no second search<br>
+          ────────────────────────────<br>
+          Trust strip / venues grid
+        </div>
+        <div class="callout" style="margin-top:0">
+          <span class="lbl">Why it didn't hold</span>
+          <p>Hiding the primary search in the nav meant a user who lands on the hero has no visible path to finding venues — the most important action on the page. Reducing cognitive load at the cost of discoverability was the wrong trade.</p>
+        </div>
+      </div>
+      <div class="card">
+        <span style="background:#FDF2EE;color:#B4451F;font-size:.6875rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:99px;display:inline-block;margin-bottom:12px">Direction B</span>
+        <h3 class="h3" style="font-size:1rem">Hero search only, remove nav pill</h3>
+        <div style="background:#f5f5f7;border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:12px 0;font-size:.8125rem;font-family:monospace;line-height:1.6;color:var(--ink-3)">
+          [nav] ——————————————— CTA<br>
+          ────────────────────────────<br>
+          Hero: headline + big search box<br>
+          &nbsp;&nbsp;↳ filter-based (city/type)<br>
+          ────────────────────────────<br>
+          Manvia.ai as secondary widget
+        </div>
+        <div class="callout" style="margin-top:0">
+          <span class="lbl">Why it didn't hold</span>
+          <p>Relegating Manvia.ai (the AI search) to a secondary widget buried below the fold deprioritised a key differentiator. If the platform is investing in AI search, the hero is exactly where it needs visible presence — not a footnote.</p>
+        </div>
+      </div>
+      <div class="card" style="border:1px solid #B6D8C6;background:#EDF6F1">
+        <span style="background:#1F6B4A;color:#fff;font-size:.6875rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:99px;display:inline-block;margin-bottom:12px">Direction C — chosen</span>
+        <h3 class="h3" style="font-size:1rem">Search Hub Section — equal prominence</h3>
+        <div style="background:#f5f5f7;border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:12px 0;font-size:.8125rem;font-family:monospace;line-height:1.6;color:var(--ink-3)">
+          [nav] ——————————————— CTA<br>
+          ────────────────────────────<br>
+          Hero: headline + trust stats<br>
+          ────────────────────────────<br>
+          Search Hub:<br>
+          &nbsp;&nbsp;[Manvia.ai] | [Filter search]<br>
+          &nbsp;&nbsp;two tabs, equal weight<br>
+          ────────────────────────────<br>
+          Venues / Trust strip
+        </div>
+        <div style="border-left:3px solid #1F6B4A;background:#fff;padding:14px 18px;border-radius:0 8px 8px 0;margin-top:0;font-size:.875rem;color:var(--ink-2)">Gives both search modes visible entry points without either competing in the hero. The tab pattern lets a user choose their mode without the page having already chosen for them.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="before-after">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow">Before / after</p>
+      <h2 class="h2">From an unreconciled page to one shared system</h2>
+    </div>
+
+    <div class="ba">
+      <div class="ba__col">
+        <span class="ba__label before">Before — live site</span>
+        <div class="mock">
+          <div style="background:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;font-family:Poppins,sans-serif;border-bottom:1px solid #eee">
+            <div style="line-height:1.1"><div style="color:#e71f34;font-weight:800;font-size:16px">mandap<span style="color:#1a1a1a;font-weight:600">.com</span></div><div style="color:#8a9099;font-size:8px">from Matrimony.com group</div></div>
+            <div style="display:flex;gap:6px">
+              <div style="background:#fdeef0;color:#1a1a1a;font-size:9px;font-weight:600;padding:7px 10px;border-radius:99px;white-space:nowrap">Search by locality &amp; type ›</div>
+              <div style="border:1px solid #eee;color:#8a9099;font-size:9px;font-weight:600;padding:7px 10px;border-radius:99px;white-space:nowrap">Select City ⌄</div>
+            </div>
+          </div>
+          <div style="background:linear-gradient(180deg,rgba(30,20,15,.45),rgba(30,20,15,.72)),url('https://images.unsplash.com/photo-1519741497674-611481863552?q=60&w=700&auto=format&fit=crop') center/cover;padding:34px 24px 40px;font-family:Poppins,sans-serif">
+            <div style="border:1px solid rgba(255,255,255,.4);border-radius:99px;padding:8px 14px;display:flex;align-items:center;gap:8px;margin-bottom:16px;max-width:230px;background:rgba(255,255,255,.08)">
+              <span style="color:#fff;font-size:11px">✦</span>
+              <span style="color:rgba(255,255,255,.7);font-size:9.5px">Ask Manvia.ai…</span>
+            </div>
+            <h3 style="color:#fff;font-size:19px;font-weight:700;line-height:1.3;margin:0 0 18px">India's Largest Wedding <span style="color:#ff5468">Venue Booking</span> Platform with 50,000+ venues</h3>
+            <div style="background:#fff;border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:6px;font-size:10px;color:#3D434D">
+              <div style="background:#f7f7f7;border-radius:5px;padding:8px">Wedding City ⌄</div>
+              <div style="background:#f7f7f7;border-radius:5px;padding:8px">Locality ⌄</div>
+              <div style="background:#e71f34;color:#fff;text-align:center;border-radius:5px;padding:9px;font-weight:600">Find venues →</div>
+            </div>
+          </div>
+        </div>
+        <p class="muted" style="font-size:.875rem">Recreated from verified live-site screenshots — mandap.com sends security headers that block iframe embedding, so this is a faithful static rebuild, not a live frame. View the real page directly: <a href="https://www.mandap.com/" target="_blank" rel="noopener">mandap.com</a></p>
+      </div>
+      <div class="ba__col">
+        <span class="ba__label after">After — redesign</span>
+        <div class="mock">
+          <div style="background:#2d1b4e;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;font-family:Poppins,sans-serif">
+            <div style="color:#fff;font-family:'Newsreader',serif;font-size:18px;font-weight:600">mandap<span style="color:#c9a15c">.com</span></div>
+            <div style="background:linear-gradient(135deg,#ff4081,#e8367a);color:#fff;font-size:10px;font-weight:600;padding:8px 14px;border-radius:99px;white-space:nowrap">Find Venues</div>
+          </div>
+          <div style="background:linear-gradient(180deg,#2d1b4e,#3d2566);padding:32px 24px 40px;font-family:Poppins,sans-serif">
+            <div style="border:1px solid rgba(232,205,156,.5);border-radius:99px;padding:8px 14px;display:flex;align-items:center;gap:8px;margin-bottom:16px;max-width:260px">
+              <span style="color:#e8cd9c;font-size:11px">✦</span>
+              <span style="color:rgba(255,255,255,.6);font-size:10px">Ask Manvia.ai…</span>
+            </div>
+            <p style="color:#e8cd9c;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin:0 0 12px">India's Largest Wedding Venue Platform</p>
+            <h3 style="color:#fff;font-family:'Newsreader',serif;font-size:24px;font-weight:600;line-height:1.2;margin:0 0 14px">Find Your <span style="color:#e8cd9c">Dream Wedding Venue</span> with Confidence</h3>
+            <div style="background:#fff;border-radius:10px;padding:12px;display:flex;gap:8px;font-size:10px;color:#3D434D">
+              <div style="flex:1;background:#faf6ef;border-radius:6px;padding:8px">Wedding City</div>
+              <div style="flex:1;background:#faf6ef;border-radius:6px;padding:8px">Locality</div>
+              <div style="background:#2d1b4e;color:#fff;border-radius:6px;padding:8px 14px;white-space:nowrap">Search</div>
+            </div>
+          </div>
+          <div style="background:#faf6ef;padding:16px 24px;display:flex;justify-content:space-around;text-align:center;font-family:Poppins,sans-serif;border-top:1px solid #ece4d6">
+            <div><div style="color:#2d1b4e;font-weight:700;font-size:16px">50,000+</div><div style="color:#5a5270;font-size:9px">Verified Venues</div></div>
+            <div><div style="color:#2d1b4e;font-weight:700;font-size:16px">100+</div><div style="color:#5a5270;font-size:9px">Cities</div></div>
+            <div><div style="color:#2d1b4e;font-weight:700;font-size:16px">1,200+</div><div style="color:#5a5270;font-size:9px">Venue Experts</div></div>
+          </div>
+        </div>
+        <p class="muted" style="font-size:.875rem">Working prototype (HTML, single file) — open directly to view the full page, including the collapsed SEO block and category grid.</p>
+      </div>
+    </div>
+
+    <table class="tbl">
+      <thead><tr><th>Dimension</th><th>Before</th><th>After</th></tr></thead>
+      <tbody>
+        <tr><td>SEO link architecture</td><td class="was">292 links in one undifferentiated footer block</td><td class="now">Same links, collapsed behind a categorized disclosure — crawlability preserved, cognitive load removed</td></tr>
+        <tr><td>Link contrast</td><td class="was">3.35:1 — fails WCAG AA</td><td class="now">Re-measured to a passing hex against the real background</td></tr>
+        <tr><td>Search entry points</td><td class="was">Two competing search UIs on desktop</td><td class="now">One search surface, plus a real AI-search entry point</td></tr>
+        <tr><td>Social proof</td><td class="was">None anywhere on the page</td><td class="now">Testimonial component built — copy still placeholder, flagged honestly, not fabricated as final</td></tr>
+        <tr><td>Component system</td><td class="was">Trust strip, FAQ, and vendor CTA each visually different</td><td class="now">One shared card and arch-motif language reused across every section</td></tr>
+        <tr><td>H1 responsiveness</td><td class="was">Fixed 40px at all viewport widths</td><td class="now">Fluid <code>clamp()</code> scale, no manual line break</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="sec" id="user-journey">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow">User journey</p>
+      <h2 class="h2">How a couple moves from discovery to shortlisting</h2>
+      <p class="lead">This is the journey the redesign is built around — not a logged-in user flow, but the initial discovery-to-shortlist arc that the homepage needs to support. It helped frame which sections matter most and in what order.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="step__n">1</span>
+        <div>
+          <h3 class="h3">Discovery — "Is this platform trustworthy?"</h3>
+          <p style="color:var(--ink-2);font-size:.9375rem;margin-top:6px">A couple searching for wedding venues in Chennai lands on the homepage. Their first question is credibility — not features. <strong>Design response:</strong> the hero leads with trust signals (50,000+ venues, verified badge, Matrimony.com group affiliation) before showing any search UI.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step__n">2</span>
+        <div>
+          <h3 class="h3">Search entry — "How do I find venues for my situation?"</h3>
+          <p style="color:var(--ink-2);font-size:.9375rem;margin-top:6px">One person wants to browse by city and type; their partner wants to describe what they're looking for in natural language. <strong>Design response:</strong> the Search Hub gives both entry points — Manvia.ai and filter-based — equal prominence in one section, so neither user has to adapt to the interface.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step__n">3</span>
+        <div>
+          <h3 class="h3">Validation — "Have other couples used this for real weddings?"</h3>
+          <p style="color:var(--ink-2);font-size:.9375rem;margin-top:6px">Before shortlisting, they want peer proof. <strong>Design response:</strong> the testimonial section (currently placeholder-flagged) sits between search results and the venue expert CTA — social proof at the exact moment the couple is deciding whether to commit to a shortlist.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step__n">4</span>
+        <div>
+          <h3 class="h3">Shortlisting — "Who do I contact if I have questions?"</h3>
+          <p style="color:var(--ink-2);font-size:.9375rem;margin-top:6px">Once interested, they want a human they can reach. <strong>Design response:</strong> the venue expert CTA closes the page with a clear escalation path — "speak to a venue expert" — so the couple can move from self-serve discovery to guided support without leaving the site.</p>
+        </div>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:32px">
+      <span class="lbl">Note on this journey</span>
+      <p>This flow is a design hypothesis, not a validated user research finding. I had no access to analytics or real user sessions for this self-initiated project. The journey informed sequencing decisions — it's not a claim about how users actually behave.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--dark" id="bridge">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow">The bridge</p>
+      <h2 class="h2" style="color:#F2F4F6">The decisions that got from before to after</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="step__n">1</span>
+        <div class="step__b"><h3 class="h4" style="color:#fff">Measure before critiquing</h3><p>Rather than reviewing screenshots, I pulled real DOM counts and ran an automated contrast script against the live site's actual computed colors. That's what surfaced the 412-link count and the 3.35:1 contrast failure — findings a purely visual pass would likely have missed.</p></div>
+      </div>
+      <div class="step">
+        <span class="step__n">2</span>
+        <div class="step__b"><h3 class="h4" style="color:#fff">Define the problem before designing anything</h3><p>I ran 5 Whys and a Problem Tree against the audit evidence before drafting a single screen — reframing "the page looks inconsistent" into "no system connects the SEO, trust, and conversion goals." That reframing changed what counted as a fix.</p></div>
+      </div>
+      <div class="step">
+        <span class="step__n">3</span>
+        <div class="step__b"><h3 class="h4" style="color:#fff">Break the findings into shippable vertical slices</h3><p>I translated the audit into ten independently-shippable task slices — bundling discovery, build, and verification together per fix — rather than a flat list, so the cheap P0 fixes (contrast, the link wall) weren't blocked on the slower ones (sourcing real testimonials).</p></div>
+      </div>
+      <div class="step">
+        <span class="step__n">4</span>
+        <div class="step__b"><h3 class="h4" style="color:#fff">Audit my own output the same way</h3><p>After building the redesign, I re-ran the same contrast script against my own new components — and found six WCAG failures I'd introduced without noticing, including on the exact category-browsing grid I'd built to fix a different problem. Fixed all six the same measured way.</p></div>
+      </div>
+      <div class="step">
+        <span class="step__n">5</span>
+        <div class="step__b"><h3 class="h4" style="color:#fff">Correct inconsistency when it was pointed out, not defend it</h3><p>An early version of the category grid mixed card shapes and sizes by two different unstated rules at once — it read as accidental, not deliberate. I rebuilt it with one consistent treatment across all eight categories rather than justifying the variation after the fact.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="mobile">
+  <div class="wrap narrow prose">
+    <p class="eyebrow">Mobile</p>
+    <h2 class="h2" style="margin-top:14px">What testing at real breakpoints changed</h2>
+    <p>I tested the live site at desktop (1512px), tablet (768px), and mobile (~500px) rather than assuming a desktop finding held everywhere. That directly corrected one assumption: the duplicate search-UI problem I'd found on desktop turned out to resolve itself correctly on mobile — the nav pills genuinely disappear below a certain width — which meant that fix only needed to apply to the desktop/tablet range, not the whole site. It also surfaced a mobile-specific issue a desktop-only review would have missed entirely: the H1 rendering at an identical fixed size regardless of viewport width, which the redesign replaced with a fluid scale.</p>
+  </div>
+</section>
+
+<section class="sec sec--alt" id="reflect">
+  <div class="wrap narrow prose">
+    <p class="eyebrow">Reflection</p>
+    <h2 class="h2" style="margin-top:14px">What this is, and what it isn't yet</h2>
+    <p>This is a completed audit and a working redesign prototype, built against measured evidence rather than assumption. It is <strong>not</strong> yet backed by analytics, conversion data, or real user interviews — I don't have access to any of those for a self-initiated project against a public live site, and I'm stating that plainly rather than implying a research depth that isn't there. If I were continuing this work, the next steps would be: (1) instrumenting scroll-depth and enquiry-funnel tracking on the live site to turn the audit's hypotheses into measured facts, and (2) running a handful of real moderated sessions with couples actually researching venues, to check whether the hierarchy changes here land the way the audit predicted.</p>
+    <div class="callout" style="margin-top:28px">
+      <span class="lbl">Post-design cognitive walkthrough</span>
+      <p>A cognitive walkthrough from three user perspectives — a first-time couple, a specific-intent returning user, and a venue owner — surfaced three gaps not caught during the audit phase. First, the word "Verified" does trust work without explaining what was actually verified — a tooltip or one supporting line would close the gap. Second, the locality filter breaks for first-time visitors who don't know the city's neighbourhoods; a "Search all localities" default would fix it. Third, the two search tab labels — Manvia.ai and Filter search — don't tell users which mode suits their query; a short descriptor under each tab would help users self-select correctly. The testimonial section remains placeholder copy, which is the one genuinely incomplete element before this is production-ready.</p>
+    </div>
+    <div class="quote">
+      <p>The hardest part wasn't finding what was wrong with the page — the DOM and a contrast script did most of that work for me. It was turning around and running the same measurement against my own redesign, and having to fix six accessibility failures I'd just introduced myself.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap narrow">
+    <p class="h3">Mandap.com — Homepage Audit &amp; Redesign</p>
+    <p>Self-initiated case study, evaluated against Matrimony.com group's Mandap.com</p>
+    <p style="margin-top:20px"><a href="https://www.mandap.com/" target="_blank" rel="noopener">Live site</a> · Redesign prototype and full audit write-up available as supporting files</p>
+  </div>
+</footer>
+
+</body>
+</html>

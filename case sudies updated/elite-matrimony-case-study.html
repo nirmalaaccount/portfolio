@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elite Matrimony — Landing Page Redesign · Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14161A; --ink-2:#3D434D; --ink-3:#646B77; --ink-4:#8A9099;
+  --page:#FFFFFF; --raised:#F7F8F9; --sunken:#EFF1F3; --dark:#12131c;
+  --line:#E3E6EA; --line-2:#CBD1D8;
+  --gold:#c5a059; --gold-soft:#FBF6EE;
+  --ok:#1F6B4A; --ok-soft:#EDF6F1;
+  --font-sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --font-serif:"Newsreader",Georgia,serif;
+  --maxw:1120px; --gutter:clamp(20px,4vw,56px); --sec:clamp(56px,7vw,112px); --r:10px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+body{margin:0;background:var(--page);color:var(--ink);font-family:var(--font-sans);font-size:1.0625rem;line-height:1.72;font-weight:400}
+img{display:block;max-width:100%;height:auto}
+h1,h2,h3,h4,p,figure{margin:0}
+ul{margin:0;padding:0;list-style:none}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gutter)}
+.narrow{max-width:760px;margin-inline:auto}
+.eyebrow{font-size:.6875rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.h1{font-family:var(--font-serif);font-weight:300;font-size:clamp(2.25rem,4.6vw,3.75rem);line-height:1.08;letter-spacing:-.02em}
+.h2{font-family:var(--font-serif);font-weight:300;font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.16;letter-spacing:-.015em}
+.h3{font-size:clamp(1.125rem,1.5vw,1.375rem);font-weight:600;line-height:1.3}
+.lead{font-size:clamp(1.125rem,1.5vw,1.3125rem);line-height:1.66;color:var(--ink-2);font-weight:300}
+.muted{color:var(--ink-3)}
+.prose>*+*{margin-top:1.15em}
+.prose p{color:var(--ink-2)}
+.prose h3{margin-top:2.4em;color:var(--ink)}
+.prose ul{display:grid;gap:.6em;margin-top:1em}
+.prose ul li{padding-left:1.35em;position:relative;color:var(--ink-2)}
+.prose ul li::before{content:"";position:absolute;left:.25em;top:.72em;width:5px;height:5px;border-radius:50%;background:var(--line-2)}
+.sec{padding-block:var(--sec)}
+.sec--alt{background:var(--raised);border-block:1px solid var(--line)}
+.sec--dark{background:var(--dark);color:#F2F4F6}
+.sec--dark .lead,.sec--dark .prose p{color:#B9BFC7}
+.sec--dark .muted{color:#8E959E}
+.sec--dark .eyebrow{color:#D8B478}
+.sec__head{display:grid;gap:16px;max-width:720px;margin-bottom:clamp(32px,4vw,56px)}
+.subnav{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.subnav__in{display:flex;align-items:center;gap:8px;overflow-x:auto;scrollbar-width:none;min-height:56px}
+.subnav__in::-webkit-scrollbar{display:none}
+.subnav a{font-size:.8125rem;font-weight:500;color:var(--ink-3);padding:8px 12px;border-radius:6px;white-space:nowrap;text-decoration:none}
+.subnav a:hover{background:var(--sunken);color:var(--ink)}
+.hero{padding-block:clamp(48px,7vw,104px) clamp(40px,5vw,72px)}
+.hero__title{display:grid;gap:24px;max-width:900px}
+.hero__meta{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:clamp(36px,4vw,56px);padding-top:28px;border-top:1px solid var(--line)}
+.hero__meta dt{font-size:.6875rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4);margin-bottom:6px}
+.hero__meta dd{font-size:.9375rem;color:var(--ink)}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,24px)}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(20px,2.5vw,32px)}
+.card{background:var(--page);border:1px solid var(--line);border-radius:var(--r);padding:clamp(20px,2.4vw,30px);display:grid;gap:10px;align-content:start}
+.sec--alt .card{background:var(--page)}
+.sec--dark .card{background:#1D2026;border-color:#2C3138}
+.card__n{font-family:var(--font-serif);font-size:1.05rem;color:var(--gold);letter-spacing:.08em}
+.card p{font-size:.9375rem;color:var(--ink-2)}
+.sec--dark .card p{color:#B9BFC7}
+.callout{border-left:3px solid var(--gold);background:var(--gold-soft);padding:20px 24px;border-radius:0 var(--r) var(--r) 0;display:grid;gap:8px;margin-block:28px}
+.callout .lbl{font-size:.6875rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8A5F26}
+.callout p{font-size:1rem;color:var(--ink-2)}
+.verified{border:1px solid #B6D8C6;background:var(--ok-soft);border-radius:var(--r);padding:16px 20px;display:flex;gap:10px;align-items:baseline;margin-block:20px;font-size:.9375rem}
+.verified b{color:var(--ok);flex:none}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2vw,28px);margin-block:32px}
+.ba__col{display:grid;gap:12px}
+.ba__label{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;border-radius:99px;display:inline-block;width:fit-content}
+.ba__label.before{background:#FDF2EE;color:#B4451F}
+.ba__label.after{background:var(--ok-soft);color:var(--ok)}
+.frame{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--sunken)}
+.frame iframe{width:100%;height:420px;border:0;display:block}
+.frame__fallback{padding:32px 20px;text-align:center;font-size:.875rem;color:var(--ink-3)}
+.mock{border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.tbl{width:100%;border-collapse:collapse;font-size:.9375rem;margin-block:24px}
+.tbl th,.tbl td{text-align:left;padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl thead th{font-size:.6875rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4);font-weight:600;border-bottom:1px solid var(--line-2)}
+.tbl td.was{color:var(--ink-3)}
+.tbl td.now{color:var(--ok);font-weight:500}
+.steps{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.step{background:var(--page);padding:clamp(22px,2.6vw,32px);display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start}
+.step__n{width:36px;height:36px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:.8125rem;font-weight:600;flex:none}
+.step p{font-size:.9375rem;color:var(--ink-2)}
+.quote{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding-block:clamp(28px,4vw,48px);margin-block:clamp(28px,4vw,48px)}
+.quote p{font-family:var(--font-serif);font-weight:300;font-size:clamp(1.3rem,2.4vw,1.875rem);line-height:1.34;color:var(--ink)}
+.quote footer{margin-top:16px;font-size:.875rem;color:var(--ink-3)}
+.foot{background:var(--dark);color:#B9BFC7;padding-block:clamp(40px,5vw,72px);font-size:.9375rem}
+.foot a{color:#D8B478;text-decoration:underline;text-underline-offset:3px}
+.foot .h3{color:#F2F4F6;margin-bottom:12px}
+@media (max-width:900px){.hero__meta{grid-template-columns:repeat(2,1fr)}.grid-3{grid-template-columns:repeat(2,1fr)}.grid-2,.ba{grid-template-columns:1fr}}
+@media (max-width:560px){.grid-3{grid-template-columns:1fr}.step{grid-template-columns:1fr;gap:12px}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero__title">
+      <p class="eyebrow">In-house product design · Matrimony.com group</p>
+      <h1 class="h1">Designing for the client who will never fill in a form casually</h1>
+      <p class="lead">Elite Matrimony is Matrimony.com's private matchmaking practice for India's wealthiest families. I redesigned its landing page around one problem the live site hadn't solved: it applied mass-market matrimony conventions to a service whose entire value is exclusivity and restraint.</p>
+    </div>
+    <dl class="hero__meta">
+      <div><dt>My role</dt><dd>Sole designer — audit, IA, UI, rationale</dd></div>
+      <div><dt>Company</dt><dd>Matrimony.com group</dd></div>
+      <div><dt>Method</dt><dd>Heuristic audit of live site + redesign</dd></div>
+      <div><dt>Platform</dt><dd>Responsive web — 1336 &amp; 360</dd></div>
+    </dl>
+  </div>
+</header>
+
+<section class="sec" style="padding-block:0 clamp(40px,5vw,64px)">
+  <div class="wrap">
+    <div class="grid-3">
+      <div class="card">
+        <span class="card__n">Problem</span>
+        <p>A private, invitation-only matchmaking service used mass-market conversion tactics — 9 pricing points, 5 video carousels, 13 truncated testimonials — that undercut the exclusivity it was selling.</p>
+      </div>
+      <div class="card">
+        <span class="card__n">Decision</span>
+        <p>Resequenced the page around the buyer's actual decision path — qualification, then trust, then price — instead of a generic attention-funnel.</p>
+      </div>
+      <div class="card">
+        <span class="card__n">Outcome</span>
+        <p>A completed, audited redesign ready for stakeholder review — honestly framed as design-stage, not yet backed by conversion data.</p>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:24px">
+      <span style="font-size:.8125rem;font-weight:600;color:var(--ink-2);background:var(--gold-soft);border:1px solid #EAD9B8;padding:6px 14px;border-radius:99px">Heuristic auditing</span>
+      <span style="font-size:.8125rem;font-weight:600;color:var(--ink-2);background:var(--gold-soft);border:1px solid #EAD9B8;padding:6px 14px;border-radius:99px">Information architecture</span>
+      <span style="font-size:.8125rem;font-weight:600;color:var(--ink-2);background:var(--gold-soft);border:1px solid #EAD9B8;padding:6px 14px;border-radius:99px">Responsive UI</span>
+      <span style="font-size:.8125rem;font-weight:600;color:var(--ink-2);background:var(--gold-soft);border:1px solid #EAD9B8;padding:6px 14px;border-radius:99px">Content strategy</span>
+      <span style="font-size:.8125rem;font-weight:600;color:var(--ink-2);background:var(--gold-soft);border:1px solid #EAD9B8;padding:6px 14px;border-radius:99px">Stakeholder-ready deliverable</span>
+    </div>
+  </div>
+</section>
+
+<nav class="subnav" aria-label="Case study sections">
+  <div class="wrap subnav__in">
+    <a href="#context">Context</a>
+    <a href="#audit">The audit</a>
+    <a href="#page-flow">Page flow</a>
+    <a href="#before-after">Before / After</a>
+    <a href="#early-directions">Early directions</a>
+    <a href="#bridge">The bridge</a>
+    <a href="#mobile">Mobile</a>
+    <a href="#reflect">Reflection</a>
+  </div>
+</nav>
+
+<section class="sec" id="context">
+  <div class="wrap narrow prose">
+    <p class="eyebrow">Context</p>
+    <h2 class="h2" style="margin-top:14px">A service that sells the opposite of a platform</h2>
+    <p>Elite Matrimony sits inside Matrimony.com, the publicly listed company behind BharatMatrimony. It has operated since 2008, serving over 100,000 members through more than 100 dedicated relationship managers. Memberships are tiered by net worth — Elite Professional, Elite Business (up to ₹200 crore net worth), and Elite Aristocrat (above ₹200 crore) — each with duration-based pricing from ₹50,000 to ₹1,50,000.</p>
+    <p>This is not a browse-and-swipe matrimony platform. A relationship manager holds each client's brief personally, searches a closed register, and makes introductions one family at a time. That creates an unusual design brief: every convention that makes a typical matrimony product feel trustworthy — visible scale, testimonial walls, feature-dense pricing — is precisely what a discretion-first, relationship-led service has to avoid signalling.</p>
+  </div>
+</section>
+
+<section class="sec sec--alt" id="audit">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow">The audit</p>
+      <h2 class="h2">What I actually reviewed, and what I found</h2>
+      <p class="lead">I ran a structured heuristic audit of the live site — <a href="https://www.elitematrimony.com/" target="_blank" rel="noopener">elitematrimony.com</a> — rather than starting from assumption. Every finding below is verifiable by visiting the page directly.</p>
+    </div>
+
+    <div class="verified"><b>Verified</b> All findings in this section were re-checked against the live site on the day this case study was written — not carried over from an earlier note.</div>
+
+    <div class="grid-2">
+      <div class="prose">
+        <h3 style="margin-top:0">What I found</h3>
+        <ul>
+          <li><strong>The enquiry form sits inside the hero</strong>, above any explanation of the service — a visitor is asked for name, alliance preference, mother tongue, and mobile number before they've been told why they should trust the organisation with that information.</li>
+          <li><strong>A five-video TV commercial carousel</strong>, each a regional-language variant of the same ad, sitting between the value proposition and the "How it works" explanation.</li>
+          <li><strong>Thirteen success stories</strong>, each truncated at roughly 60 words with a "Read more" link — high scroll cost for low signal per story.</li>
+          <li><strong>A three-tier × three-duration pricing structure</strong> (Professional / Business / Aristocrat, each at 3 months / 6 months / "Till U Marry") — up to nine price points a visitor has to parse before knowing which applies to them.</li>
+          <li><strong>Eight FAQ items</strong> doing explanatory work — including "Is Elite Matrimony different from regular matrimonial sites?" — that the page body should have already answered by that point.</li>
+          <li><strong>No qualification signal above the fold.</strong> A ₹300 crore family and an unqualified visitor see the identical hero and the identical form.</li>
+        </ul>
+      </div>
+      <div class="prose">
+        <h3 style="margin-top:0">Why it matters commercially</h3>
+        <p>For a service run by 100+ relationship managers, the page has one real job: send <em>qualified</em> enquiries to a human. Volume is actively costly here — every unqualified enquiry consumes relationship-manager time that could go to a ₹1,50,000 member.</p>
+        <div class="callout">
+          <span class="lbl">Design goal I set</span>
+          <p>Increase the proportion of enquiries that are actually qualified, while establishing enough trust in the organisation's discretion that a prospect is willing to hand over sensitive information at all.</p>
+        </div>
+        <p class="muted" style="font-size:.9375rem">These two goals pull against each other — filtering people out vs. inviting them in. Most decisions below are attempts to hold both at once.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="lbl">What this audit did not include</span>
+      <p>I did not conduct relationship-manager interviews or an analytics review for this redesign — this is a heuristic and competitive audit, not a mixed-methods research study. I'm stating that plainly rather than implying a research depth that isn't there.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--alt" id="page-flow">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow">Page flow</p>
+      <h2 class="h2">How the page sequence changed</h2>
+      <p class="lead">The live site sequences the page around a generic conversion funnel — get attention, show features, push to action. The redesign reorders it around the specific question an Elite Matrimony prospect actually works through before they'll trust you with sensitive family information.</p>
+    </div>
+    <div class="grid-2">
+      <div>
+        <p style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#B4451F;margin-bottom:16px">Live site — current sequence</p>
+        <div class="steps">
+          <div class="step" style="padding:18px 24px">
+            <span class="step__n" style="background:#B4451F;width:28px;height:28px;font-size:.75rem">1</span>
+            <div><strong style="font-size:.9375rem">Enquiry form in the hero</strong><p style="font-size:.875rem;margin-top:4px">Name, alliance preference, mother tongue, mobile — before any explanation of the service</p></div>
+          </div>
+          <div class="step" style="padding:18px 24px">
+            <span class="step__n" style="background:#B4451F;width:28px;height:28px;font-size:.75rem">2</span>
+            <div><strong style="font-size:.9375rem">5-video TV commercial carousel</strong><p style="font-size:.875rem;margin-top:4px">Regional-language ads, not process explanation</p></div>
+          </div>
+          <div class="step" style="padding:18px 24px">
+            <span class="step__n" style="background:#B4451F;width:28px;height:28px;font-size:.75rem">3</span>
+            <div><strong style="font-size:.9375rem">9 pricing points (3 tiers × 3 durations)</strong><p style="font-size:.875rem;margin-top:4px">Price before trust has been established</p></div>
+          </div>
+          <div class="step" style="padding:18px 24px">
+            <span class="step__n" style="background:#B4451F;width:28px;height:28px;font-size:.75rem">4</span>
+            <div><strong style="font-size:.9375rem">13 truncated testimonials</strong><p style="font-size:.875rem;margin-top:4px">Each cut at ~60 words with "Read more"</p></div>
+          </div>
+          <div class="step" style="padding:18px 24px">
+            <span class="step__n" style="background:#B4451F;width:28px;height:28px;font-size:.75rem">5</span>
+            <div><strong style="font-size:.9375rem">How it works</strong><p style="font-size:.875rem;margin-top:4px">Process explained after pricing — too late for most visitors</p></div>
+          </div>
+          <div class="step" style="padding:18px 24px">
+            <span class="step__n" style="background:#B4451F;width:28px;height:28px;font-size:.75rem">6</span>
+            <div><strong style="font-size:.9375rem">8 FAQ items</strong><p style="font-size:.875rem;margin-top:4px">Including "Is Elite Matrimony different?" — a question the page body should have answered already</p></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#1F6B4A;margin-bottom:16px">Redesign — buyer's decision sequence</p>
+        <div class="steps">
+          <div class="step" style="padding:18px 24px">
+            <span class="step__n" style="background:#1F6B4A;width:28px;height:28px;font-size:.75rem">1</span>
+            <div><strong style="font-size:.9375rem">Hero — who this is for</strong><p style="font-size:.875rem;margin-top:4px">Invitation-only framing, qualification signal, trust badges — am I the right kind of client?</p></div>
+          </div>
+          <div class="step" style="padding:18px 24px">
+            <span class="step__n" style="background:#1F6B4A;width:28px;height:28px;font-size:.75rem">2</span>
+            <div><strong style="font-size:.9375rem">Privacy &amp; discretion commitment</strong><p style="font-size:.875rem;margin-top:4px">Can I trust this organisation with sensitive family information?</p></div>
+          </div>
+          <div class="step" style="padding:18px 24px">
+            <span class="step__n" style="background:#1F6B4A;width:28px;height:28px;font-size:.75rem">3</span>
+            <div><strong style="font-size:.9375rem">5-step process narrative</strong><p style="font-size:.875rem;margin-top:4px">Member Briefing → Discovery → Curated Matches → Introductions → Guidance — what actually happens after I enquire?</p></div>
+          </div>
+          <div class="step" style="padding:18px 24px">
+            <span class="step__n" style="background:#1F6B4A;width:28px;height:28px;font-size:.75rem">4</span>
+            <div><strong style="font-size:.9375rem">3 full success stories</strong><p style="font-size:.875rem;margin-top:4px">Named couples, profession, city context — complete, no truncation</p></div>
+          </div>
+          <div class="step" style="padding:18px 24px">
+            <span class="step__n" style="background:#1F6B4A;width:28px;height:28px;font-size:.75rem">5</span>
+            <div><strong style="font-size:.9375rem">3 self-contained pricing tiers</strong><p style="font-size:.875rem;margin-top:4px">After trust is built — Elite / Royal Business / Aristocrat, one card each</p></div>
+          </div>
+          <div class="step" style="padding:18px 24px">
+            <span class="step__n" style="background:#1F6B4A;width:28px;height:28px;font-size:.75rem">6</span>
+            <div><strong style="font-size:.9375rem">Enquiry form</strong><p style="font-size:.875rem;margin-top:4px">Invited at the end — after qualification, trust, process, and proof have all been established</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:32px">
+      <span class="lbl">Why sequence is the real design decision</span>
+      <p>The content on both pages is nearly identical — the same process, the same testimonials, the same pricing. The difference is entirely the <em>order</em>. Moving the form from position 1 to position 6, and putting privacy before pricing, is an IA decision, not a visual one. That's what this project is really about.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="before-after">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow">Before / after</p>
+      <h2 class="h2">From volume tactics to a sequenced trust narrative</h2>
+    </div>
+
+    <div class="ba">
+      <div class="ba__col">
+        <span class="ba__label before">Before — live site</span>
+        <div class="frame">
+          <iframe src="https://www.elitematrimony.com/" loading="lazy" title="Elite Matrimony live site"></iframe>
+        </div>
+        <p class="muted" style="font-size:.875rem">If the embed above doesn't load (some sites block embedding), view it directly: <a href="https://www.elitematrimony.com/" target="_blank" rel="noopener">elitematrimony.com</a></p>
+      </div>
+      <div class="ba__col">
+        <span class="ba__label after">After — redesign</span>
+        <div class="mock">
+          <div style="background:#12131c;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;font-family:Poppins,sans-serif">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="width:26px;height:26px;border-radius:50%;background:#c5a059"></div>
+              <div style="line-height:1.1"><div style="color:#fff;font-weight:700;font-size:13px">ELITE</div><div style="color:#c5a059;font-weight:600;font-size:7px;letter-spacing:.1em">MATRIMONY</div></div>
+            </div>
+            <div style="background:#c5a059;color:#12131c;font-size:10px;font-weight:600;padding:8px 14px;border-radius:4px;white-space:nowrap">Private Consultation</div>
+          </div>
+          <div style="background:#12131c;padding:36px 28px 44px;font-family:Poppins,sans-serif">
+            <p style="color:#c5a059;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin:0 0 14px">India's Most Trusted Elite Matchmaking Service</p>
+            <h3 style="color:#fff;font-size:24px;font-weight:600;line-height:1.2;margin:0 0 14px">Where Exceptional People Find Extraordinary Life Partners</h3>
+            <p style="color:#a2a4b0;font-size:12px;line-height:1.6;margin:0 0 20px">A highly personalised and completely confidential service tailored exclusive to industrialists, business owners, and distinguished global professionals.</p>
+            <div style="display:flex;gap:10px">
+              <div style="background:#c5a059;color:#12131c;font-size:11px;font-weight:600;padding:10px 16px;border-radius:4px;white-space:nowrap">BOOK A PRIVATE CONSULTATION</div>
+              <div style="border:1px solid #c5a059;color:#c5a059;font-size:11px;font-weight:600;padding:10px 16px;border-radius:4px;white-space:nowrap">LEARN OUR PROCESS</div>
+            </div>
+          </div>
+          <div style="background:#faf9f5;padding:20px 28px;display:flex;justify-content:space-around;text-align:center;font-family:Poppins,sans-serif;border-top:1px solid #e2e1dc">
+            <div><div style="color:#c5a059;font-weight:700;font-size:18px">100,000+</div><div style="color:#5a5d75;font-size:9px">Elite Members</div></div>
+            <div><div style="color:#c5a059;font-weight:700;font-size:18px">100%</div><div style="color:#5a5d75;font-size:9px">Confidentiality</div></div>
+            <div><div style="color:#c5a059;font-weight:700;font-size:18px">100+</div><div style="color:#5a5d75;font-size:9px">Relationship Mgrs</div></div>
+          </div>
+        </div>
+        <p class="muted" style="font-size:.875rem">Live, editable version: <a href="https://www.figma.com/design/wyLVtuUPQBaa7OTbhwbmY5/Elite-matrimony-Revamp" target="_blank" rel="noopener">Figma file →</a></p>
+      </div>
+    </div>
+
+    <table class="tbl">
+      <thead><tr><th>Dimension</th><th>Before</th><th>After</th></tr></thead>
+      <tbody>
+        <tr><td>Enquiry form placement</td><td class="was">In the hero, competing with the headline</td><td class="now">Moved after trust-building (privacy, process, stats)</td></tr>
+        <tr><td>Pricing presentation</td><td class="was">Up to 9 price points across 3 tiers × 3 durations</td><td class="now">3 legible tiers (Elite / Royal Business / Aristocrat), one screen</td></tr>
+        <tr><td>Video content</td><td class="was">5-video regional-language carousel above the fold</td><td class="now">Removed from primary flow; process explained in 5 text steps instead</td></tr>
+        <tr><td>Success stories</td><td class="was">13 truncated stories with "Read more"</td><td class="now">3 full, complete quotes with named context (no truncation)</td></tr>
+        <tr><td>Qualification signal</td><td class="was">None above the fold</td><td class="now">Invitation-only framing set in the hero trust badges</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="sec" id="early-directions">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow">Early directions</p>
+      <h2 class="h2">Two approaches I considered and moved away from</h2>
+      <p class="lead">Before settling on a sequenced trust narrative, I worked through two other directions. Both were plausible on paper — here's why I stepped back from each.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card" style="border-left:3px solid #CBD1D8;padding:28px 28px 28px 24px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+          <span style="background:#FDF2EE;color:#B4451F;font-size:.6875rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:99px">Direction A — not used</span>
+        </div>
+        <h3 class="h3">Lead with a "Who we serve" filter</h3>
+        <p style="color:var(--ink-2);margin-top:10px;font-size:.9375rem">The first idea was to open the page with an explicit qualifier — net worth thresholds, occupation categories — so the right visitor self-identifies before seeing anything else. Seen on some ultra-premium services.</p>
+        <div class="callout" style="margin-top:18px">
+          <span class="lbl">Why I moved away from it</span>
+          <p>Putting financial thresholds at the very top reads as a bouncer, not an invitation. For a service that emphasises relationship and discretion, the first impression should feel like you're being welcomed into something exclusive — not screened at a velvet rope. The qualification signal is still in the hero, but it's framed as "who this is designed for" rather than "prove you qualify."</p>
+        </div>
+      </div>
+      <div class="card" style="border-left:3px solid #CBD1D8;padding:28px 28px 28px 24px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+          <span style="background:#FDF2EE;color:#B4451F;font-size:.6875rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:99px">Direction B — not used</span>
+        </div>
+        <h3 class="h3">Remove pricing from the page entirely</h3>
+        <p style="color:var(--ink-2);margin-top:10px;font-size:.9375rem">Some luxury services deliberately hide pricing — "enquire for details" — to preserve mystique and gate the conversation behind a phone call. I considered this seriously for Elite Matrimony.</p>
+        <div class="callout" style="margin-top:18px">
+          <span class="lbl">Why I moved away from it</span>
+          <p>Elite Matrimony already lists pricing publicly on the live site. Hiding it in the redesign would create an inconsistency with the live product, and for a parent researching in private at 11pm, "call us for pricing" adds friction at exactly the wrong moment. Pricing stays — but sequenced after trust has been built, not before.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--dark" id="bridge">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow">The bridge</p>
+      <h2 class="h2" style="color:#F2F4F6">The decisions that got from before to after</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="step__n">1</span>
+        <div class="step__b"><h3 class="h4" style="color:#fff">Sequence around the buyer's real decision, not a generic funnel</h3><p>Instead of an AIDA-style attention→interest→action structure, I ordered the page around the actual question a prospect works through: <em>am I the right kind of client → can I trust this organisation with sensitive information → who exactly will contact me.</em> That's why privacy and process now sit before pricing.</p></div>
+      </div>
+      <div class="step">
+        <span class="step__n">2</span>
+        <div class="step__b"><h3 class="h4" style="color:#fff">Collapse 9 price points into 3 tiers</h3><p>The live site separates package tier from duration, forcing a mental cross-reference. I merged them into three self-contained cards (Elite, Royal Business, Aristocrat) so a visitor self-selects in one glance instead of comparing a matrix.</p></div>
+      </div>
+      <div class="step">
+        <span class="step__n">3</span>
+        <div class="step__b"><h3 class="h4" style="color:#fff">Replace video carousel with a 5-step process narrative</h3><p>The TV commercials are marketing assets, not proof of process. I replaced that slot with a concrete 5-step journey (Member Briefing → Profile Discovery → Curated Matches → Introductions → Relationship Guidance) that shows what actually happens after enquiry — since this is a relationship-led service, not a self-serve one.</p></div>
+      </div>
+      <div class="step">
+        <span class="step__n">4</span>
+        <div class="step__b"><h3 class="h4" style="color:#fff">Cut story count, raise story completeness</h3><p>13 truncated testimonials ask for effort (tap "Read more") for a small payoff. I cut to 3 stories but removed all truncation — full quotes, named couples, city and profession context — trading breadth for credibility per story.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="mobile">
+  <div class="wrap narrow prose">
+    <p class="eyebrow">Mobile</p>
+    <h2 class="h2" style="margin-top:14px">A parent reading on a phone, not a founder skimming a laptop</h2>
+    <p>A meaningful share of enquiries for this service come from a parent rather than the prospective bride or groom — often 50–70, reading on a large-screen phone rather than scanning quickly. That shaped the mobile design directly: the couple photo and stats reflow above the text rather than being cropped out, trust badges stack instead of compressing, and the CTA pair stacks full-width instead of shrinking to fit a row.</p>
+    <p>Full mobile frames (360px): <a href="https://www.figma.com/design/wyLVtuUPQBaa7OTbhwbmY5/Elite-matrimony-Revamp?node-id=20-384" target="_blank" rel="noopener">view in Figma →</a></p>
+  </div>
+</section>
+
+<section class="sec sec--alt" id="reflect">
+  <div class="wrap narrow prose">
+    <p class="eyebrow">Reflection</p>
+    <h2 class="h2" style="margin-top:14px">What this is, and what it isn't yet</h2>
+    <p>This is a completed design deliverable, audited against the live site and ready for stakeholder review and dev handoff. It is <strong>not</strong> yet backed by conversion data, A/B results, or relationship-manager interviews — I'm not going to claim results I can't defend. If I were continuing this work, the next steps would be: (1) validating the qualification framing with a handful of real enquirers before publishing any net-worth threshold copy more prominently, and (2) instrumenting the new enquiry flow so qualified-lead rate — not just submission volume — can actually be measured post-launch.</p>
+    <div class="callout" style="margin-top:28px">
+      <span class="lbl">Post-design cognitive walkthrough</span>
+      <p>After completing the redesign, I ran a cognitive walkthrough from three user perspectives — a parent researching on mobile, a self-made professional, and a first-time visitor. I identified 5 potential gaps: undefined pricing tier differentiators, no timeline indication in the process, unclear brand relationship for new visitors, success stories not covering the full user range, and form field ambiguity. Checking each against the actual Figma, all 5 were already addressed — tier benefits are listed per card, the FAQ answers "how long does it take" with a 6–12 month range, the footer carries the Matrimony.com group relationship, the stories include a tech founder and an NRI family, and the form was removed entirely in favour of a consultation CTA. Running the walkthrough after the fact confirmed the design held up — but it also showed me the value of doing it earlier in the process, before the design is called finished.</p>
+    </div>
+    <div class="quote">
+      <p>The hardest part wasn't making the page feel expensive. It was accepting that for this audience, restraint converts better than persuasion — and then removing things that looked impressive but did nothing for a family deciding whether to trust us with something private.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap narrow">
+    <p class="h3">Elite Matrimony — Landing Page Redesign</p>
+    <p>In-house product design, Matrimony.com group</p>
+    <p style="margin-top:20px"><a href="https://www.figma.com/design/wyLVtuUPQBaa7OTbhwbmY5/Elite-matrimony-Revamp" target="_blank" rel="noopener">View the Figma file</a> · <a href="https://www.elitematrimony.com/" target="_blank" rel="noopener">Live site</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

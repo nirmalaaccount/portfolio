@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ManyJobs — Recruiter Page Revamp · Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#191834; --ink-2:#3D3B54; --ink-3:#4b4a60; --ink-4:#8A8996;
+  --page:#FFFFFF; --raised:#F7F7FB; --sunken:#EFEFF6; --dark:#191834;
+  --indigo:#201e7e; --indigo-soft:#EEEDFB;
+  --line:#e4e4ef; --line-2:#CBCBDE;
+  --ok:#1F6B4A; --ok-soft:#EDF6F1;
+  --flag:#B4451F; --flag-soft:#FDF2EE;
+  --font-sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --font-serif:"Newsreader",Georgia,serif;
+  --maxw:1120px; --gutter:clamp(20px,4vw,56px); --sec:clamp(56px,7vw,112px); --r:12px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+body{margin:0;background:var(--page);color:var(--ink);font-family:var(--font-sans);font-size:1.0625rem;line-height:1.72}
+img{display:block;max-width:100%;height:auto}
+h1,h2,h3,h4,p{margin:0}
+ul{margin:0;padding:0;list-style:none}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gutter)}
+.narrow{max-width:760px;margin-inline:auto}
+.eyebrow{font-size:.6875rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--indigo)}
+.h1{font-family:var(--font-serif);font-weight:300;font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.1;letter-spacing:-.02em}
+.h2{font-family:var(--font-serif);font-weight:300;font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.16;letter-spacing:-.015em}
+.h3{font-size:clamp(1.125rem,1.5vw,1.375rem);font-weight:700;line-height:1.3}
+.lead{font-size:clamp(1.125rem,1.5vw,1.3125rem);line-height:1.66;color:var(--ink-3);font-weight:400}
+.muted{color:var(--ink-4)}
+.prose>*+*{margin-top:1.15em}
+.prose p{color:var(--ink-3)}
+.prose h3{margin-top:2.4em;color:var(--ink)}
+.prose ul{display:grid;gap:.6em;margin-top:1em}
+.prose ul li{padding-left:1.35em;position:relative;color:var(--ink-3)}
+.prose ul li::before{content:"";position:absolute;left:.25em;top:.72em;width:5px;height:5px;border-radius:50%;background:var(--line-2)}
+.sec{padding-block:var(--sec)}
+.sec--alt{background:var(--raised);border-block:1px solid var(--line)}
+.sec--dark{background:var(--dark);color:#F2F2FA}
+.sec--dark .lead,.sec--dark .prose p{color:#B9B8CC}
+.sec--dark .eyebrow{color:#9B9AE8}
+.sec__head{display:grid;gap:16px;max-width:720px;margin-bottom:clamp(32px,4vw,56px)}
+.subnav{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.subnav__in{display:flex;align-items:center;gap:8px;overflow-x:auto;scrollbar-width:none;min-height:56px}
+.subnav__in::-webkit-scrollbar{display:none}
+.subnav a{font-size:.8125rem;font-weight:500;color:var(--ink-4);padding:8px 12px;border-radius:6px;white-space:nowrap;text-decoration:none}
+.subnav a:hover{background:var(--sunken);color:var(--ink)}
+.hero{padding-block:clamp(48px,7vw,104px) clamp(40px,5vw,72px)}
+.hero__title{display:grid;gap:24px;max-width:900px}
+.hero__meta{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:clamp(36px,4vw,56px);padding-top:28px;border-top:1px solid var(--line)}
+.hero__meta dt{font-size:.6875rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4);margin-bottom:6px}
+.hero__meta dd{font-size:.9375rem;color:var(--ink)}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(20px,2.5vw,32px)}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,24px)}
+.card{background:var(--page);border:1px solid var(--line);border-radius:var(--r);padding:clamp(20px,2.4vw,30px);display:grid;gap:10px;align-content:start}
+.sec--dark .card{background:#232055;border-color:#302c66}
+.card__n{font-family:var(--font-serif);font-size:1.05rem;color:var(--indigo);letter-spacing:.08em}
+.sec--dark .card__n{color:#9B9AE8}
+.card p{font-size:.9375rem;color:var(--ink-3)}
+.sec--dark .card p{color:#B9B8CC}
+.callout{border-left:3px solid var(--indigo);background:var(--indigo-soft);padding:20px 24px;border-radius:0 var(--r) var(--r) 0;display:grid;gap:8px;margin-block:28px}
+.callout .lbl{font-size:.6875rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--indigo)}
+.callout p{font-size:1rem;color:var(--ink-2)}
+.verified{border:1px solid #B6D8C6;background:var(--ok-soft);border-radius:var(--r);padding:16px 20px;display:flex;gap:10px;align-items:baseline;margin-block:20px;font-size:.9375rem}
+.verified b{color:var(--ok);flex:none}
+.mock{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;font-family:Inter,sans-serif}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2vw,28px);margin-block:8px}
+.ba__label{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;border-radius:99px;margin-bottom:12px}
+.ba__label.before{background:var(--flag-soft);color:var(--flag)}
+.ba__label.after{background:var(--ok-soft);color:var(--ok)}
+.tbl{width:100%;border-collapse:collapse;font-size:.9375rem;margin-top:24px}
+.tbl th,.tbl td{text-align:left;padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl thead th{font-size:.6875rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4);font-weight:600;border-bottom:1px solid var(--line-2)}
+.tbl td.was{color:var(--ink-4)}
+.tbl td.now{color:var(--ok);font-weight:500}
+.steps{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.step{background:var(--page);padding:clamp(22px,2.6vw,32px);display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start}
+.step__n{width:36px;height:36px;border-radius:50%;background:var(--indigo);color:#fff;display:grid;place-items:center;font-size:.8125rem;font-weight:700;flex:none}
+.step p{font-size:.9375rem;color:var(--ink-3)}
+.quote{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding-block:clamp(28px,4vw,48px);margin-block:clamp(28px,4vw,48px)}
+.quote p{font-family:var(--font-serif);font-weight:300;font-size:clamp(1.3rem,2.4vw,1.875rem);line-height:1.34;color:var(--ink)}
+.foot{background:var(--dark);color:#B9B8CC;padding-block:clamp(40px,5vw,72px);font-size:.9375rem}
+.foot a{color:#9B9AE8;text-decoration:underline;text-underline-offset:3px}
+.foot .h3{color:#F2F2FA;margin-bottom:12px}
+@media (max-width:900px){.hero__meta{grid-template-columns:repeat(2,1fr)}.grid-2,.grid-3,.ba{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.grid-2,.grid-3,.ba{grid-template-columns:1fr}.step{grid-template-columns:1fr;gap:12px}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero__title">
+      <p class="eyebrow">In-house product design · Matrimony.com group</p>
+      <h1 class="h1">Revamping a live product: from telling recruiters what it does, to showing them</h1>
+      <p class="lead">ManyJobs is Matrimony.com group's live recruitment platform for entry-level Sales, Service and Manufacturing hiring, currently serving Tamil Nadu. The product already works — candidate match scoring, a bilingual English/Tamil app, WhatsApp contact, and locality filters are all shipped. My job was a visual and structural revamp of the recruiter-facing marketing page and dashboard preview: building a shared component system, and replacing descriptive benefit cards with an actual working preview of the product itself.</p>
+    </div>
+    <dl class="hero__meta">
+      <div><dt>My role</dt><dd>Sole designer — audit, component system, UI</dd></div>
+      <div><dt>Company</dt><dd>Matrimony.com group</dd></div>
+      <div><dt>Method</dt><dd>Live-site audit + visual revamp</dd></div>
+      <div><dt>Platform</dt><dd>Responsive web — 1440 &amp; 360</dd></div>
+    </dl>
+  </div>
+</header>
+
+<section class="sec" style="padding-block:0 clamp(40px,5vw,64px)">
+  <div class="wrap">
+    <div class="grid-3">
+      <div class="card">
+        <span class="card__n">Problem</span>
+        <p>A live, already-shipped product communicated its core value (match scoring, bilingual support) through descriptive benefit cards instead of showing it directly.</p>
+      </div>
+      <div class="card">
+        <span class="card__n">Decision</span>
+        <p>Built a 5-part component system and replaced claims with working previews — an actual dashboard, an actual bilingual field demo — so value is seen, not asserted.</p>
+      </div>
+      <div class="card">
+        <span class="card__n">Outcome</span>
+        <p>A visual revamp ready for handoff, honestly scoped as presentation work on top of an already-functional product — not a research-backed 0→1.</p>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:24px">
+      <span style="font-size:.8125rem;font-weight:600;color:var(--ink-2);background:var(--indigo-soft);border:1px solid #D6D4F5;padding:6px 14px;border-radius:99px">Component systems</span>
+      <span style="font-size:.8125rem;font-weight:600;color:var(--ink-2);background:var(--indigo-soft);border:1px solid #D6D4F5;padding:6px 14px;border-radius:99px">Live-product auditing</span>
+      <span style="font-size:.8125rem;font-weight:600;color:var(--ink-2);background:var(--indigo-soft);border:1px solid #D6D4F5;padding:6px 14px;border-radius:99px">Dashboard / data-dense UI</span>
+      <span style="font-size:.8125rem;font-weight:600;color:var(--ink-2);background:var(--indigo-soft);border:1px solid #D6D4F5;padding:6px 14px;border-radius:99px">Responsive UI</span>
+      <span style="font-size:.8125rem;font-weight:600;color:var(--ink-2);background:var(--indigo-soft);border:1px solid #D6D4F5;padding:6px 14px;border-radius:99px">Bilingual / localization design</span>
+    </div>
+  </div>
+</section>
+
+<nav class="subnav" aria-label="Case study sections">
+  <div class="wrap subnav__in">
+    <a href="#context">Context</a>
+    <a href="#before-after">Before / After</a>
+    <a href="#early-thinking">Early thinking</a>
+    <a href="#system">Component system</a>
+    <a href="#recruiter-flow">Recruiter flow</a>
+    <a href="#decisions">Key decisions</a>
+    <a href="#dashboard">Dashboard</a>
+    <a href="#mobile">Mobile</a>
+    <a href="#reflect">Reflection</a>
+  </div>
+</nav>
+
+<section class="sec" id="context">
+  <div class="wrap narrow prose">
+    <p class="eyebrow">Context</p>
+    <h2 class="h2" style="margin-top:14px">A live product, checked directly before touching a pixel</h2>
+    <p>Before redesigning anything, I checked <a href="https://recruiter.manyjobs.com/register" target="_blank" rel="noopener">recruiter.manyjobs.com/register</a> directly rather than assume what it did or didn't do. It's a working product: recruiters register with just a mobile number, post free, and get access to a pool the site states at 15,000+ candidates, with match-ranked applicants, direct call/WhatsApp contact, locality filters, and bilingual (English/Tamil) job posting — already live, already serving hiring partners across cities including Chennai, Coimbatore and Madurai.</p>
+    <div class="callout">
+      <span class="lbl">A note on scope</span>
+      <p>This is a design revamp of an already-shipped product, not a 0→1 concept and not a research-backed study. I didn't run recruiter interviews or see usage analytics. What I can defend directly is the component system and the specific presentation decisions in this case study — I'm not claiming more than that.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--alt" id="before-after">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow">Before / after</p>
+      <h2 class="h2">Same features, from claimed to demonstrated</h2>
+      <p class="lead">The live site's core functionality doesn't need reinventing — it needs to be seen, not just asserted. The clearest example is how the dashboard's value is currently communicated versus how the revamp presents it.</p>
+    </div>
+
+    <div class="verified"><b>Verified</b> The "Before" content is read directly from the live site's current markup on the day this case study was written.</div>
+
+    <div class="ba">
+      <div>
+        <span class="ba__label before">Before — live site</span>
+        <div class="mock" style="height:460px;overflow:hidden">
+          <iframe src="https://recruiter.manyjobs.com/register" style="width:143%;height:143%;border:0;transform:scale(0.7);transform-origin:0 0" loading="lazy" title="ManyJobs live recruiter site"></iframe>
+        </div>
+        <p class="muted" style="font-size:.875rem;margin-top:10px">If the embed doesn't load (some sites block embedding), view it directly: <a href="https://recruiter.manyjobs.com/register" target="_blank" rel="noopener">recruiter.manyjobs.com/register</a></p>
+      </div>
+      <div>
+        <span class="ba__label after">After — Figma revamp</span>
+        <div class="mock" style="height:460px;overflow:hidden">
+          <iframe src="manyjobs-after-preview.html" style="width:143%;height:143%;border:0;transform:scale(0.7);transform-origin:0 0" loading="lazy" title="ManyJobs Figma revamp preview"></iframe>
+        </div>
+        <p class="muted" style="font-size:.875rem;margin-top:10px">Full-fidelity recreation built directly from the Figma file's real copy, colors and layout. Full Figma source: <a href="https://www.figma.com/design/CiD8m9sf7Yu8BhMvvnkYgI/many-job---Revamp" target="_blank" rel="noopener">view file →</a></p>
+      </div>
+    </div>
+
+    <table class="tbl">
+      <thead><tr><th>Dimension</th><th>Live site (verified)</th><th>Figma revamp</th></tr></thead>
+      <tbody>
+        <tr><td>Dashboard value</td><td class="was">Described via 3 benefit cards</td><td class="now">Shown as a working preview with ranked, named candidates</td></tr>
+        <tr><td>Bilingual proof</td><td class="was">Stated as a feature name ("Easy-to-use vernacular app")</td><td class="now">Shown as a live side-by-side field demo (Job title / வேலை)</td></tr>
+        <tr><td>FAQ</td><td class="was">6 items, several with multi-step numbered instructions</td><td class="now">6 shorter items; operational detail trimmed, one new item added</td></tr>
+        <tr><td>Visual system</td><td class="was">Section-by-section layout, no shared component set evident</td><td class="now">5 shared components (Button, MetricItem, FeatureCard, StepCard, QuoteCard) instanced across both breakpoints</td></tr>
+        <tr><td>Core functionality (match score, bilingual, WhatsApp, filters)</td><td class="was">Already live and working</td><td class="now">Unchanged — presented with more clarity and consistency</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="sec sec--alt" id="early-thinking">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow">Early thinking</p>
+      <h2 class="h2">The one decision that changed the whole approach</h2>
+      <p class="lead">Before building the component system, I had to resolve a more fundamental question: was the problem with ManyJobs a visual one, or a structural one? The answer changed everything downstream.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card" style="border-left:3px solid #CBD1D8;padding:28px 28px 28px 24px">
+        <span style="background:#FDF2EE;color:#B4451F;font-size:.6875rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:99px;display:inline-block;margin-bottom:14px">First framing — visual polish</span>
+        <h3 class="h3" style="font-size:1rem">Redesign the marketing page aesthetics</h3>
+        <p style="color:var(--ink-2);font-size:.9375rem;margin-top:10px">Initial instinct: the live site looks dated — clean up the typography, refresh the color system, tighten the spacing. A typical visual revamp.</p>
+        <div style="background:#f5f5f7;border:1px dashed var(--line-2);border-radius:8px;padding:14px 16px;margin-top:14px;font-size:.875rem;color:var(--ink-3)">
+          <strong style="color:var(--ink-2);display:block;margin-bottom:6px">Rough layout idea at this stage:</strong>
+          Hero headline → Feature grid (3 benefit cards) → Stats → Testimonials → CTA<br><br>
+          The benefit cards described match scoring, bilingual, WhatsApp — but as text labels next to icons. Standard SaaS structure.
+        </div>
+        <div class="callout" style="margin-top:18px">
+          <span class="lbl">What made me stop</span>
+          <p>Checking the live product directly before designing anything, I saw it already did these things — match scoring was live, bilingual posting was live. The problem wasn't that the features didn't exist; it was that the page was <em>describing</em> them rather than <em>showing</em> them. A visual polish pass wouldn't fix that.</p>
+        </div>
+      </div>
+      <div class="card" style="border:1px solid #B6D8C6;background:#EDF6F1;padding:28px 28px 28px 24px">
+        <span style="background:#1F6B4A;color:#fff;font-size:.6875rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:99px;display:inline-block;margin-bottom:14px">Second framing — chosen</span>
+        <h3 class="h3" style="font-size:1rem">Replace description with demonstration</h3>
+        <p style="color:var(--ink-2);font-size:.9375rem;margin-top:10px">If the features are real and working, the design job is to make them visible — not describe them in benefit cards.</p>
+        <div style="background:#fff;border:1px solid #B6D8C6;border-radius:8px;padding:14px 16px;margin-top:14px;font-size:.875rem;color:var(--ink-3)">
+          <strong style="color:var(--ink-2);display:block;margin-bottom:6px">What changed structurally:</strong>
+          — The "Match scoring" benefit card → an actual dashboard preview with ranked candidates and percentages<br>
+          — The "Bilingual support" feature label → a live side-by-side field demo showing Job title / வேலை<br>
+          — The stats band → real verified numbers, not placeholder copy
+        </div>
+        <div style="border-left:3px solid #1F6B4A;background:#fff;border-radius:0 8px 8px 0;padding:14px 18px;margin-top:14px;font-size:.875rem;color:var(--ink-2)">This framing decision — show vs. describe — is what drove the component system, the dashboard section, and the bilingual demo that followed. Everything else in this case study flows from it.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="system">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow">Component system</p>
+      <h2 class="h2">Five reusable pieces, not one-off screens</h2>
+      <p class="lead">Before touching individual sections, I built a small shared component set — Button, MetricItem, FeatureCard, StepCard, QuoteCard — instanced throughout both the desktop (1440px) and mobile (360px) frames, so a 12-section page stays visually consistent without every section being a hand-copied frame.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card"><span class="card__n">01</span><h3 class="h3" style="font-size:1rem">Button</h3><p>Three styles — Primary, Inverse, Ghost — reused across header, hero, CTA banner and final CTA instead of one-off styled elements each time.</p></div>
+      <div class="card"><span class="card__n">02</span><h3 class="h3" style="font-size:1rem">FeatureCard / StepCard / QuoteCard</h3><p>Instanced across the Features grid, the 5-step "How it works" row, and the Testimonials section — six feature cards and five step cards, all instances, not copies.</p></div>
+      <div class="card"><span class="card__n">03</span><h3 class="h3" style="font-size:1rem">MetricItem</h3><p>One component instanced four times in the stats band on both breakpoints, so a metric update only touches one definition.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="recruiter-flow">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow">Recruiter flow</p>
+      <h2 class="h2">How a recruiter moves from posting to contact</h2>
+      <p class="lead">This is the core task flow the dashboard preview is designed to support. Mapping it explicitly helped me decide what the dashboard needs to show and — equally — what it doesn't need to show.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="step__n">1</span>
+        <div>
+          <h3 class="h3">Register and post a job — one field entry</h3>
+          <p style="color:var(--ink-2);font-size:.9375rem;margin-top:6px">The live product's registration is mobile-number-only — no email, no profile setup. That's already the right decision and the revamp keeps it. A recruiter posting a sales role in T. Nagar needs to be posting within 2 minutes of arriving, not filling in a company profile. <strong>Design implication:</strong> the hero CTA goes directly to the registration field, not to a feature overview.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step__n">2</span>
+        <div>
+          <h3 class="h3">Review applicants — ranked by match score</h3>
+          <p style="color:var(--ink-2);font-size:.9375rem;margin-top:6px">Once a job is live, the recruiter's primary question is: <em>who applied, and who should I call first?</em> The dashboard answers this with a ranked list — match percentage, location, experience — visible without opening any candidate profile. <strong>Design implication:</strong> the dashboard preview in the marketing page shows this exact view, because it's the core value proposition made visible.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step__n">3</span>
+        <div>
+          <h3 class="h3">Contact — one-tap Call or WhatsApp</h3>
+          <p style="color:var(--ink-2);font-size:.9375rem;margin-top:6px">For entry-level Sales and Manufacturing roles, the recruiter is often on the move — at a job fair, visiting a site, between calls. Direct contact from the list view without a separate profile page is the right interaction. <strong>Design implication:</strong> the dashboard preview shows Call inline in the candidate row, not behind a "View profile" step.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step__n">4</span>
+        <div>
+          <h3 class="h3">Shortlist and track — sidebar navigation</h3>
+          <p style="color:var(--ink-2);font-size:.9375rem;margin-top:6px">After initial contact, a recruiter needs to track which candidates are shortlisted and follow up. The sidebar order — Applicants → My Jobs → Shortlist → Reports — follows the task sequence, not alphabetical or by importance ranking. <strong>Design note:</strong> I could not verify the live logged-in dashboard against this flow, since it sits behind authentication. This sequence is a design hypothesis.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--alt" id="decisions">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow">Key decisions</p>
+      <h2 class="h2">Demonstrate the value, don't describe it</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="step__n">1</span>
+        <div class="step__b"><h3 class="h3">Show the dashboard itself, not a card describing it</h3><p>The live site communicates match scoring through a benefit card. I replaced that with an actual dashboard preview — ranked applicants, real match percentages, inline Call action — so the feature is demonstrated, not summarised.</p></div>
+      </div>
+      <div class="step">
+        <span class="step__n">2</span>
+        <div class="step__b"><h3 class="h3">Give the existing bilingual feature a concrete visual proof</h3><p>The live product already supports English/Tamil job posting. I designed a dedicated section with a side-by-side field demo — <em>Job title / வேலை</em> — showing the actual posting form in both languages at once, so the feature reads as evidence rather than a label next to an icon.</p></div>
+      </div>
+      <div class="step">
+        <span class="step__n">3</span>
+        <div class="step__b"><h3 class="h3">Keep the one-field registration, make it consistent everywhere</h3><p>The live site's mobile-number-only registration is already the right pattern — low friction, no signup gate. I kept it as a reusable component instanced in both the hero and the final CTA, rather than two independently built forms.</p></div>
+      </div>
+      <div class="step">
+        <span class="step__n">4</span>
+        <div class="step__b"><h3 class="h3">Sidebar IA follows how a recruiter actually works a role</h3><p>Applicants → My Jobs → Shortlist → Reports, in that order — because a recruiter filling a role thinks "who applied" before "which job" and long before "what's the report." This is a proposed structure for the dashboard preview; I could not verify it against the live logged-in product, which sits behind recruiter authentication.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--dark" id="dashboard">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow">The dashboard</p>
+      <h2 class="h2" style="color:#F2F2FA">The pipeline, in one screen</h2>
+      <p class="lead">The recruiter dashboard preview lists applicants ranked by match percentage, with location, experience, and one-tap Call/WhatsApp actions inline — no separate profile page required to decide whether to make contact.</p>
+    </div>
+    <div class="mock">
+      <div style="background:#fff;padding:10px 16px;display:flex;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:#e4e4ef;display:inline-block"></span><span style="width:10px;height:10px;border-radius:50%;background:#e4e4ef;display:inline-block"></span><span style="width:10px;height:10px;border-radius:50%;background:#e4e4ef;display:inline-block"></span></div>
+      <div style="display:flex">
+        <div style="background:#F7F7FB;width:150px;padding:16px 0;flex:none">
+          <div style="padding:10px 20px;color:#201e7e;font-weight:600;font-size:13px;background:#EEEDFB;margin:0 8px 6px;border-radius:8px">Applicants</div>
+          <div style="padding:10px 20px;color:#4b4a60;font-size:13px">My jobs</div>
+          <div style="padding:10px 20px;color:#4b4a60;font-size:13px">Shortlist</div>
+          <div style="padding:10px 20px;color:#4b4a60;font-size:13px">Reports</div>
+        </div>
+        <div style="flex:1;padding:18px 20px;background:#fff">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+            <span style="font-size:14px;font-weight:600;color:#191834">Sales Executive · T. Nagar</span>
+            <span style="background:#EEEDFB;color:#201e7e;font-size:11px;font-weight:600;padding:5px 12px;border-radius:99px">38 applications</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border:1px solid #e4e4ef;border-radius:10px;margin-bottom:8px">
+            <div><div style="font-size:13px;font-weight:600;color:#191834">Janani R</div><div style="font-size:11px;color:#8A8996">Chennai · 2 yrs exp</div></div>
+            <span style="font-size:13px;font-weight:700;color:#1F6B4A">94%</span>
+            <span style="background:#191834;color:#fff;font-size:11px;font-weight:600;padding:6px 14px;border-radius:8px">Call</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border:1px solid #e4e4ef;border-radius:10px">
+            <div><div style="font-size:13px;font-weight:600;color:#191834">Vijay Kumar</div><div style="font-size:11px;color:#8A8996">Madurai · 3 yrs exp</div></div>
+            <span style="font-size:13px;font-weight:700;color:#1F6B4A">88%</span>
+            <span style="background:#191834;color:#fff;font-size:11px;font-weight:600;padding:6px 14px;border-radius:8px">Call</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="muted" style="margin-top:16px;font-size:.9375rem">Full desktop and mobile frames: <a href="https://www.figma.com/design/CiD8m9sf7Yu8BhMvvnkYgI/many-job---Revamp" target="_blank" rel="noopener" style="color:#9B9AE8">view in Figma →</a></p>
+  </div>
+</section>
+
+<section class="sec" id="mobile">
+  <div class="wrap narrow prose">
+    <p class="eyebrow">Mobile</p>
+    <h2 class="h2" style="margin-top:14px">A recruiter checking applicants between site visits</h2>
+    <p>For roles like Sales and Manufacturing, a lot of recruiter activity happens on the move, not at a desk — and the live site itself is registration-first on mobile. The mobile frame (360px) keeps the same component instances as desktop but reorders the hero so candidate cards sit directly below the one-field registration module, and the dashboard's sidebar collapses into the same four-item task order (Applicants → My Jobs → Shortlist → Reports) rather than hiding behind a hamburger menu.</p>
+    <p>Full mobile frames: <a href="https://www.figma.com/design/CiD8m9sf7Yu8BhMvvnkYgI/many-job---Revamp?node-id=18-100" target="_blank" rel="noopener">view in Figma →</a></p>
+  </div>
+</section>
+
+<section class="sec sec--alt" id="reflect">
+  <div class="wrap narrow prose">
+    <p class="eyebrow">Reflection</p>
+    <h2 class="h2" style="margin-top:14px">What this is, and what I'd validate next</h2>
+    <p>This is a Figma revamp of a live, already-shipped product — not a 0→1 concept, and not something I've validated with real recruiters myself. Worth noting: the live site already carries strong verified social proof — named client quotes from Netambit, Paytm Services, Thangamayil Jewellery and Pumo Technovation — real evidence I didn't need to invent, and worth preserving in any final version rather than replacing with generic placeholder testimonials.</p>
+    <p>If I were taking the dashboard preview further, the question I'd want answered first is whether a bare match percentage is enough for a recruiter to act on, or whether they need a visible "why this match" reason (skills, location radius, availability) before they'll trust it enough to pick up the phone. That's a five-minute conversation with a real recruiter, and it's the test I'd run before anything else — not another visual pass.</p>
+    <div class="callout" style="margin-top:28px">
+      <span class="lbl">Post-design cognitive walkthrough</span>
+      <p>A cognitive walkthrough from three recruiter perspectives — a first-time HR manager, a returning recruiter, and a job seeker who landed on the wrong page — surfaced the most significant gap I'd missed: the entire page is oriented toward new registration with no visible login path for returning users, who are actually the most valuable users since they've already been converted. A returning recruiter typing their number doesn't know if they're logging in or creating a duplicate account. One line — "Already registered? Enter your number to sign in" — resolves it entirely. The walkthrough also found that "15,000+ candidates" needs geographic context to be meaningful for a recruiter hiring in Chennai specifically, and that the dashboard preview doesn't show the locality filter the live product already has — the one question a recruiter asks immediately after seeing the ranked list is "can I filter by location?"</p>
+    </div>
+    <div class="quote">
+      <p>The easy version of this project was making the page look clean. The harder version was resisting the urge to explain the bilingual support in a sentence when showing it in the actual form fields said it faster and more convincingly.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap narrow">
+    <p class="h3">ManyJobs — Recruiter Page Revamp</p>
+    <p>In-house product design, Matrimony.com group</p>
+    <p style="margin-top:20px"><a href="https://www.figma.com/design/CiD8m9sf7Yu8BhMvvnkYgI/many-job---Revamp" target="_blank" rel="noopener">View the Figma file</a> · <a href="https://recruiter.manyjobs.com/register" target="_blank" rel="noopener">Live site</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
